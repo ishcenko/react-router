@@ -81,6 +81,7 @@ const Modal = ({ visibleData, onCloseModal }) => {
           </button>
         </div>
         <h2>Active dataType: {dataType} </h2>
+        {!Array.isArray(visibleData) && JSON.stringify(visibleData, null, 2)}
         {dataType === 'emails' && (
           <ul>
             {Array.isArray(visibleData) &&
@@ -92,8 +93,16 @@ const Modal = ({ visibleData, onCloseModal }) => {
         {dataType === 'users' && (
           <ul>
             {Array.isArray(visibleData) &&
+              visibleData.map(comments => (
+                <li key={comments.id}>{comments.name}</li>
+              ))}{' '}
+          </ul>
+        )}
+        {dataType === 'comments' && (
+          <ul>
+            {Array.isArray(visibleData) &&
               visibleData.map(comment => (
-                <li key={comment.id}>{comment.name}</li>
+                <li key={comment.id}>{comment.body}</li>
               ))}{' '}
           </ul>
         )}

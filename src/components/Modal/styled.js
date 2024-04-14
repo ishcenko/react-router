@@ -48,5 +48,5 @@ export const StyledModal = styled.div`
   border-radius: 12px;
   padding: 25px;
   width: 450px;
-  height: 350px;
+  min-height: 350px;
 `;
