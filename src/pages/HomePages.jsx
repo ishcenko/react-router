@@ -1,7 +1,7 @@
-import Modal from 'components/Modal/Modal';
+// import Modal from 'components/Modal/Modal';
 import React, { useEffect, useState } from 'react';
 import { ThreeCircles } from 'react-loader-spinner';
-import { fetchDetails, fetchPosts } from 'services/api';
+import { fetchPosts } from 'services/api';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
@@ -17,28 +17,26 @@ const toastConfig = {
 };
 
 export const HomePage = () => {
-  const [modal, setModal] = useState({ isOpen: false, visibleData: null });
+  // const [modal, setModal] = useState({ isOpen: false, visibleData: null });
   const [posts, setPosts] = useState(
     () => JSON.parse(localStorage.getItem('posts')) ?? []
   );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selectedPostId, setSelectedPostId] = useState(null);
-  // const firstRenderRef = useRef(true);
 
-  const onOpenModal = data => {
-    setModal({
-      isOpen: true,
-      visibleData: data,
-    });
-  };
+  // const onOpenModal = data => {
+  //   setModal({
+  //     isOpen: true,
+  //     visibleData: data,
+  //   });
+  // };
 
-  const onCloseModal = () => {
-    setModal({
-      isOpen: false,
-      visibleData: null,
-    });
-  };
+  // const onCloseModal = () => {
+  //   setModal({
+  //     isOpen: false,
+  //     visibleData: null,
+  //   });
+  // };
 
   // const onSelectPostId = postId => {
   //   setSelectedPostId(postId);
@@ -61,32 +59,12 @@ export const HomePage = () => {
     fetchPostData();
   }, []);
 
-  useEffect(() => {
-    // if (firstRenderRef.current) return () => (firstRenderRef.current = false);
-    if (!selectedPostId) return;
-
-    const fetchPostData = async postId => {
-      try {
-        setIsLoading(true);
-        const postDetails = await fetchDetails(postId);
-        onOpenModal(postDetails);
-        toast.success('Post details were successfully fetched!', toastConfig);
-      } catch (error) {
-        setError(error.message);
-        toast.error(error.message, toastConfig);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchPostData(selectedPostId);
-  }, [selectedPostId]);
-
   return (
     <div>
       <h1 className="title-app">React</h1>
-      {modal.isOpen && (
+      {/* {modal.isOpen && (
         <Modal onCloseModal={onCloseModal} visibleData={modal.visibleData} />
-      )}
+      )} */}
       {error !== null && <p className="c-error"> Oops, error.</p>}
       {isLoading && (
         <ThreeCircles

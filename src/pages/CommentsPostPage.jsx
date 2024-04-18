@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ThreeCircles } from 'react-loader-spinner';
-import { NavLink, useParams, Routes, Route } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { fetchDetails } from 'services/api';
-import CommentsPostPage from './CommentsPostPage';
+import { fetchComments } from 'services/api';
+import { useParams } from 'react-router-dom';
 
 const toastConfig = {
   position: 'top-right',
@@ -16,21 +15,21 @@ const toastConfig = {
   theme: 'dark',
 };
 
-const PostDetails = () => {
-  const [postDetails, setPostDetails] = useState(null);
+const CommentsPostPage = () => {
+  const [comments, setComments] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { postId } = useParams();
+
   useEffect(() => {
-    // if (firstRenderRef.current) return () => (firstRenderRef.current = false);
     if (!postId) return;
 
     const fetchPostData = async () => {
       try {
         setIsLoading(true);
 
-        const postData = await fetchDetails(postId);
-        setPostDetails(postData);
+        const comments = await fetchComments(postId);
+        setComments(comments);
         toast.success('Post details were successfully fetched!', toastConfig);
       } catch (error) {
         setError(error.message);
@@ -44,8 +43,8 @@ const PostDetails = () => {
 
   return (
     <div>
-      <h1>Post Details</h1>
-      {error !== null && <p className="c-error"> Oops, error.</p>}
+      <h1>Comments Post Page</h1>
+      {error !== null && <p className="c-error"> Oops, error. {error} </p>}
       {isLoading && (
         <ThreeCircles
           visible={true}
@@ -57,22 +56,17 @@ const PostDetails = () => {
           wrapperClass=""
         />
       )}
-
-      {postDetails !== null && (
-        <div className="post-details">
-          <h2 className="post_details-title">Title: {postDetails.title} </h2>
-          <p className="post_details-id">ID: {postDetails.id} </p>
-          <p className="post_details-body"> {postDetails.body} </p>
-          <div>
-            <NavLink to="comments">Comments</NavLink>
-          </div>
-        </div>
-      )}
-      <Routes>
-        <Route path="comments" element={<CommentsPostPage />} />
-      </Routes>
+      <ul>
+        {comments?.length > 0 &&
+          comments.map(comment => (
+            <li key={comment.id}>
+              <h2>{comment.email}</h2>
+              <p>{comment.body}</p>
+            </li>
+          ))}
+      </ul>
     </div>
   );
 };
 
-export default PostDetails;
+export default CommentsPostPage;

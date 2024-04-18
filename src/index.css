@@ -75,26 +75,25 @@ code {
   font-weight: 700;
 }
 
-/* .buttonType {
-  margin-top: 35px;
-  width: 300px;
-  margin-right: auto;
-  margin-left: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-} */
+.post-details {
+  display: block;
+  margin-right: 40px;
+  margin-left: 40px;
+  font-style: italic;
+}
 
-/* .buttonType::active {
-  background-color: rgba(55, 55, 55, 0.7);
-  color: #fff;
-} */
-
-/* .button-type {
-  border: 2px solid black;
-  border-radius: 4px;
-  background-color: aquamarine;
-  width: 120px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-} */
+.post_details-title {
+  color: blue;
+  display: block;
+  font-size: 32px;
+  text-align: center;
+}
+.post_details-id {
+  display: block;
+  color: red;
+  font-size: 24px;
+  text-align: left;
+}
+.post_details-body {
+  display: block;
+}
