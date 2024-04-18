@@ -40,9 +40,9 @@ export const HomePage = () => {
     });
   };
 
-  const onSelectPostId = postId => {
-    setSelectedPostId(postId);
-  };
+  // const onSelectPostId = postId => {
+  //   setSelectedPostId(postId);
+  // };
 
   useEffect(() => {
     const fetchPostData = async () => {
